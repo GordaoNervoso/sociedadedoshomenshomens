@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Sociedade dos Homens Homens</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    height: 100vh;
+    background: url("https://i.imgur.com/9pQBexE_d.webp?maxwidth=760&fidelity=grand")
+                no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Barra superior */
+header {
+    background: rgba(0,0,0,0.7);
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+nav a {
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Conteúdo central */
+.container {
+    height: calc(100vh - 70px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box {
+    background: rgba(0,0,0,0.75);
+    padding: 30px;
+    width: 350px;
+    border-radius: 8px;
+    color: white;
+    display: none;
+}
+
+.box.active {
+    display: block;
+}
+
+.box h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.box input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 4px;
+}
+
+.box button {
+    width: 100%;
+    padding: 10px;
+    background: #2563eb;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.box button:hover {
+    background: #1d4ed8;
+}
+
+.message {
+    margin-top: 15px;
+    font-size: 14px;
+    text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Sociedade dos Homens Homens2</h1>
+    <nav>
+        <a href="#" onclick="showHome()">Início</a>
+        <a href="#" onclick="showLogin()">Login</a>
+        <a href="#" onclick="showRegister()">Criar Conta</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <div class="box active" id="home">
+        <h2>Bem-vindo</h2>
+        <p style="text-align:center;">
+            Este é um site de exemplo com login local.<br><br>
+            Use o menu acima para navegar.
+        </p>
+    </div>
+
+    <div class="box" id="login">
+        <h2>Login</h2>
+        <input type="text" id="loginUser" placeholder="Usuário">
+        <input type="password" id="loginPass" placeholder="Senha">
+        <button onclick="login()">Entrar</button>
+        <div class="message" id="loginMsg"></div>
+    </div>
+
+    <div class="box" id="register">
+        <h2>Criar Conta</h2>
+        <input type="text" id="regUser" placeholder="Usuário">
+        <input type="password" id="regPass" placeholder="Senha">
+        <button onclick="register()">Registrar</button>
+        <div class="message" id="regMsg"></div>
+    </div>
+
+</div>
+
+<script>
+function hideAll() {
+    document.querySelectorAll(".box").forEach(b => b.classList.remove("active"));
+}
+
+function showHome() {
+    hideAll();
+    document.getElementById("home").classList.add("active");
+}
+
+function showLogin() {
+    hideAll();
+    document.getElementById("login").classList.add("active");
+}
+
+function showRegister() {
+    hideAll();
+    document.getElementById("register").classList.add("active");
+}
+
+function register() {
+    let user = regUser.value;
+    let pass = regPass.value;
+
+    if (!user || !pass) {
+        regMsg.innerText = "Preencha todos os campos.";
+        return;
+    }
+
+    localStorage.setItem("user", user);
+    localStorage.setItem("pass", pass);
+    regMsg.innerText = "Conta criada com sucesso!";
+}
+
+function login() {
+    let user = loginUser.value;
+    let pass = loginPass.value;
+
+    let savedUser = localStorage.getItem("user");
+    let savedPass = localStorage.getItem("pass");
+
+    if (user === savedUser && pass === savedPass) {
+        loginMsg.innerText = "Login realizado com sucesso!";
+    } else {
+        loginMsg.innerText = "Usuário ou senha incorretos.";
+    }
+}
+</script>
+
+</body>
+</html>
